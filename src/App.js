@@ -89,10 +89,22 @@ function App() {
                     },
                     dataLabels: {
                         enabled: true,
+                        formatter: function (val, opts) {
+                            if (changeParams === 'retention') {
+                                return val + '%'
+                            } else {
+                                return val + '명'
+                            }
+                        },
                     },
                     colors: ['#008FFB'],
                     title: {
-                        text: changeParams,
+                        text:
+                            changeParams === 'retention'
+                                ? 'Retention'
+                                : changeParams === 'user_cnt'
+                                ? 'User Count'
+                                : 'Cohort User Count',
                     },
                     tooltip: {
                         x: {
@@ -138,7 +150,7 @@ function App() {
                         options={state.options}
                         series={state.series}
                         type="heatmap"
-                        width="900"
+                        width="1200"
                     />
                 </div>
             )}
